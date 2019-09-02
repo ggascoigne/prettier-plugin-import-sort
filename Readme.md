@@ -1,4 +1,4 @@
-#prettier-plugin-import-sort
+# prettier-plugin-import-sort
 
 This is [Prettier] plugin to sort imports using [import-sort] for javascript and typescript files.
 
