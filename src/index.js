@@ -41,18 +41,18 @@ function getAndCheckConfig(extension, fileDirectory) {
   return resolvedConfig
 }
 
-function organizeImports(unsortedCode, filePath) {
+function organizeImports(unsortedCode, extension) {
   // this throw exceptions up to prettier
   const config = getAndCheckConfig(
-    path.extname(filePath),
-    path.dirname(filePath)
+    extension,
+    path.resolve(__dirname, '..', '..')
   )
   const { parser, style, config: rawConfig } = config
   const sortResult = sortImports(
     unsortedCode,
     parser,
     style,
-    filePath,
+    `dummy${extension}`,
     rawConfig.options
   )
   return sortResult.code
@@ -61,14 +61,14 @@ function organizeImports(unsortedCode, filePath) {
 const parsers = {
   typescript: {
     ...typescriptParsers.typescript,
-    preprocess(text, { filepath = 'dummy.ts' }) {
-      return organizeImports(text, filepath)
+    preprocess(text) {
+      return organizeImports(text, '.ts')
     }
   },
   babel: {
     ...javascriptParsers.babel,
-    preprocess(text, { filepath = 'dummy.js' }) {
-      return organizeImports(text, filepath)
+    preprocess(text) {
+      return organizeImports(text, '.js')
     }
   }
 }
