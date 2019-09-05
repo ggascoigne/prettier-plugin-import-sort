@@ -4,22 +4,20 @@ function _interopDefault(ex) {
   return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex
 }
 
-const { parsers: typescriptParsers } = _interopDefault(require('prettier/parser-typescript'))
-const { parsers: javascriptParsers } = _interopDefault(require('prettier/parser-babylon'))
+const { parsers: typescriptParsers } = _interopDefault(
+  require('prettier/parser-typescript')
+)
+const { parsers: javascriptParsers } = _interopDefault(
+  require('prettier/parser-babylon')
+)
 const sortImports = _interopDefault(require('import-sort'))
 const { getConfig } = _interopDefault(require('import-sort-config'))
 const path = _interopDefault(require('path'))
 
 function throwIf(condition, message) {
   if (condition) {
-    throw new Error(message)
+    throw new Error(`prettier-plugin-import-sort:  ${message}`)
   }
-}
-
-function handleFilePathError(filePath, e) {
-  console.error(`${filePath}:`)
-  console.error(e.toString())
-  process.exitCode = 2
 }
 
 function getAndCheckConfig(extension, fileDirectory) {
@@ -35,42 +33,41 @@ function getAndCheckConfig(extension, fileDirectory) {
   const { parser, style } = resolvedConfig
 
   throwIf(!parser, `Parser "${rawParser}" could not be resolved`)
-  throwIf(!style, `Style "${rawStyle}" could not be resolved`)
+  throwIf(
+    !style || style === rawStyle,
+    `Style "${rawStyle}" could not be resolved`
+  )
 
   return resolvedConfig
 }
 
 function organizeImports(unsortedCode, filePath) {
-  let config
-
-  try {
-    config = getAndCheckConfig(path.extname(filePath), path.dirname(filePath))
-  } catch (e) {
-    handleFilePathError(filePath, e)
-  }
-
+  // this throw exceptions up to prettier
+  const config = getAndCheckConfig(
+    path.extname(filePath),
+    path.dirname(filePath)
+  )
   const { parser, style, config: rawConfig } = config
-  let sortResult
-
-  try {
-    sortResult = sortImports(unsortedCode, parser, style, filePath, rawConfig.options)
-  } catch (e) {
-    handleFilePathError(filePath, e)
-  }
-
+  const sortResult = sortImports(
+    unsortedCode,
+    parser,
+    style,
+    filePath,
+    rawConfig.options
+  )
   return sortResult.code
 }
 
 const parsers = {
   typescript: {
     ...typescriptParsers.typescript,
-    preprocess(text, { filepath }) {
+    preprocess(text, { filepath = 'dummy.ts' }) {
       return organizeImports(text, filepath)
     }
   },
   babel: {
     ...javascriptParsers.babel,
-    preprocess(text, { filepath }) {
+    preprocess(text, { filepath = 'dummy.js' }) {
       return organizeImports(text, filepath)
     }
   }
