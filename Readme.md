@@ -17,6 +17,16 @@ You will also want to install an import sort style module of your choice, such a
 $ npm i -D import-sort-style-module
 ```
 
+You will then need the configuration for import-sorts available, e.g. something like this in package.json
+
+```json
+"importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module"
+    }
+  }
+  ```
+  
 ### Credits:
 
 A large part of this code was copied from import-sort-cli.
