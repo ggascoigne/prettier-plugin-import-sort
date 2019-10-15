@@ -25,8 +25,21 @@ You will then need the configuration for import-sorts available, e.g. something 
       "style": "module"
     }
   }
-  ```
-  
+```
+
+If you are using typescript, you may also need to specify the typescript parser.  This is somewhat dependant upon the typescript features used (decorators for instance), e.g.
+
+```json
+"importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  }
+```
+
+
+
 ### Credits:
 
 A large part of this code was copied from import-sort-cli.
