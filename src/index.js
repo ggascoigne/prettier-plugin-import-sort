@@ -8,7 +8,7 @@ const { parsers: typescriptParsers } = _interopDefault(
   require('prettier/parser-typescript')
 )
 const { parsers: javascriptParsers } = _interopDefault(
-  require('prettier/parser-babylon')
+  require('prettier/parser-babel')
 )
 const sortImports = _interopDefault(require('import-sort'))
 const { getConfig } = _interopDefault(require('import-sort-config'))
