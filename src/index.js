@@ -45,7 +45,7 @@ function organizeImports(unsortedCode, extension) {
   // this throw exceptions up to prettier
   const config = getAndCheckConfig(
     extension,
-    path.resolve(__dirname, '..', '..')
+    path.resolve(process.cwd())
   )
   const { parser, style, config: rawConfig } = config
   const sortResult = sortImports(
