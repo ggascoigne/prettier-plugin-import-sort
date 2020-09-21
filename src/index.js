@@ -61,6 +61,7 @@ const parsers = {
     preprocess(text, opts) {
       return organizeImports(text, '.ts', opts.filepath)
     }
+  },
   babel: {
     ...javascriptParsers.babel,
     preprocess(text, opts) {
