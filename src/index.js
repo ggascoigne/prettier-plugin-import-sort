@@ -59,7 +59,7 @@ const parsers = {
   typescript: {
     ...typescriptParsers.typescript,
     preprocess(text, opts) {
-      return organizeImports(text, '.ts', opts.filepath)
+      return organizeImports(text, path.extname(opts.filepath), path.dirname(opts.filepath))
     }
   },
   babel: {
