@@ -76,7 +76,15 @@ const parsers = {
   babel: {
     ...javascriptParsers.babel,
     preprocess(text, opts) {
-      return organizeImports(text, '.js', opts.filepath)
+      let extname = '.js'
+      let dirname = null
+
+      if (typeof opts.filepath === 'string') {
+        extname = path.extname(opts.filepath)
+        dirname = path.dirname(opts.filepath)
+      }
+
+      return organizeImports(text, extname, dirname)
     }
   }
 }
