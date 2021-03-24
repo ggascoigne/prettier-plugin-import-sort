@@ -38,6 +38,7 @@ If you are using typescript, you may also need to specify the typescript parser.
   }
 ```
 
+Note: importSort silently falls back to its default configuration if it finds a setup error. Make sure that the extension list is like the example above and not something liek `"*.js"` which is an error.
 
 
 ### Credits:
