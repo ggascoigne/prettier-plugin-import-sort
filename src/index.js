@@ -41,7 +41,7 @@ function getAndCheckConfig(extension, fileDirectory) {
   return resolvedConfig
 }
 
-function organizeImports(unsortedCode, extension, dirname) {
+function organizeImports(unsortedCode, extension, dirname, filepath) {
   // this throw exceptions up to prettier
   const config = getAndCheckConfig(
     extension,
@@ -52,7 +52,7 @@ function organizeImports(unsortedCode, extension, dirname) {
     unsortedCode,
     parser,
     style,
-    `dummy${extension}`,
+    typeof filepath === 'string' ? filepath : `dummy${extension}`,
     rawConfig.options
   )
   return sortResult.code
@@ -70,7 +70,7 @@ const parsers = {
         dirname = path.dirname(opts.filepath)
       }
 
-      return organizeImports(text, extname, dirname)
+      return organizeImports(text, extname, dirname, opts.filepath)
     }
   },
   babel: {
@@ -84,7 +84,7 @@ const parsers = {
         dirname = path.dirname(opts.filepath)
       }
 
-      return organizeImports(text, extname, dirname)
+      return organizeImports(text, extname, dirname, opts.filepath)
     }
   }
 }
