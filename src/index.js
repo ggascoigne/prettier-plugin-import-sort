@@ -37,7 +37,6 @@ function getAndCheckConfig(extension, fileDirectory) {
     !style || style === rawStyle,
     `Style "${rawStyle}" could not be resolved`
   )
-
   return resolvedConfig
 }
 
@@ -71,7 +70,7 @@ const parsers = {
       }
 
       return organizeImports(text, extname, dirname, opts.filepath)
-    }
+    },
   },
   babel: {
     ...javascriptParsers.babel,
@@ -85,10 +84,10 @@ const parsers = {
       }
 
       return organizeImports(text, extname, dirname, opts.filepath)
-    }
-  }
+    },
+  },
 }
 
 module.exports = {
-  parsers
+  parsers,
 }

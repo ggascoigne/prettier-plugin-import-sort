@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-import-sort",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Prettier plugin to pass javascript and typescript through import-sort",
   "main": "src/index.js",
   "keywords": [
@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "import-sort-style-module": "^6.0.0",
-    "prettier": "1.18.2",
+    "prettier": "2.3.0",
     "prettier-plugin-import-sort": "./"
   },
   "peerDependencies": {
-    "prettier": ">= 1.16"
+    "prettier": ">= 2.0"
   },
   "prettier": {
     "semi": false,
